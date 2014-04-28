@@ -2,6 +2,7 @@
 
 namespace Feather\Mvc\Controller;
 
+use Feather\Mvc\Http\Common;
 use Feather\Mvc\Http\Request;
 use Feather\Mvc\Http\Response;
 
@@ -62,7 +63,7 @@ abstract class AbstractController {
             $this->init();
 
             if (!method_exists($this, $method)) {
-                throw new Exception("Method:".$method." doesn't exist", Common::SC_NOT_FOUND);
+                throw new Exception("Method: ".$method." doesn't exist", Common::SC_NOT_FOUND);
             }
 
             $result = $this->$method();

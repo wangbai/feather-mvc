@@ -1,7 +1,8 @@
 <?php
 
-namespace Feather\Mvc\Application;
+namespace Feather\Mvc;
 
+use Feather\Mvc\Http\Common;
 use Feather\Mvc\Http\Request;
 use Feather\Mvc\Http\Response;
 
@@ -113,18 +114,18 @@ class Application {
     /*
     * start to run application
     */
-    public function run(Request $request, Response $response) {
+    public function run() {
         try {
-            $this->_dispatch($request, $response);
+            $this->_dispatcher->run($this->_request, $this->_response);
         } catch(Feature\Mvc\Exception $e) {
-            $response->setHttpCode($e->getCode());
-            $response->setBody($e->getMessage());
+            $this->_response->setHttpCode($e->getCode());
+            $this->_response->setBody($e->getMessage());
         } catch(Exception $e) {
-            $response->setHttpCode(Common::SC_INTERNAL_SERVER_ERROR);
-            $response->setBody($e->getMessage());
+            $this->_response->setHttpCode(Common::SC_INTERNAL_SERVER_ERROR);
+            $this->_response->setBody($e->getMessage());
         }
 
-        $response->output();
+        $this->_response->output();
         return;
     }
 

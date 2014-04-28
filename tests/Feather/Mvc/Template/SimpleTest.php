@@ -6,10 +6,12 @@ class SimpleTest extends \PHPUnit_Framework_TestCase {
 
     private $_simpleTemplate;
     private $_templateFilePath;
+    private $_request;
     private $_response;
 
     protected function setUp() {
         $this->_simpleTemplate = new Simple;
+        $this->_request = $this->getMock('Feather\Mvc\Http\Request');
         $this->_response = $this->getMock('Feather\Mvc\Http\Response');
     }
 

@@ -1,15 +1,13 @@
 <?php
 
-namespace Feather\Mvc\Template;
+namespace Feather\Mvc;
 
 class DispatcherTest extends \PHPUnit_Framework_TestCase {
 
-    private $_request;
-    private $_response;
+    private $_dispatcher;
 
     protected function setUp() {
-        $this->_request = $this->getMock('Feather\Mvc\Http\Request');
-        $this->_response = $this->getMock('Feather\Mvc\Http\Response');
+        $this->_dispatcher = new Dispatcher;
     }
 
     public function testDefault() {

@@ -12,11 +12,11 @@ xhprof_enable(XHPROF_FLAGS_CPU + XHPROF_FLAGS_MEMORY);
 */
 
 //start application
-$application = Feather\Mvc\Application(realpath(dirname(__FILE__))."/../");
+$application = new Feather\Mvc\Application(realpath(dirname(__FILE__))."/../");
 $application->init()->run();
 
 /*
 $xhprof_data = xhprof_disable();
 $xhprof_runs = new XHProfRuns_Default();
-$run_id = $xhprof_runs->save_run($xhprof_data, "xhprof_lightmvc");
+$run_id = $xhprof_runs->save_run($xhprof_data, "xhprof_feathermvc");
 */
