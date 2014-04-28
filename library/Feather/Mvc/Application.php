@@ -120,7 +120,7 @@ class Application {
         } catch(Feature\Mvc\Exception $e) {
             $this->_response->setHttpCode($e->getCode());
             $this->_response->setBody($e->getMessage());
-        } catch(Exception $e) {
+        } catch(\Exception $e) {
             $this->_response->setHttpCode(Common::SC_INTERNAL_SERVER_ERROR);
             $this->_response->setBody($e->getMessage());
         }

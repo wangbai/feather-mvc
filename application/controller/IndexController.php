@@ -19,4 +19,7 @@ class IndexController extends AbstractController {
         $response->setBody("Hello World!");
     }
 
+    public function errorAction() {
+        throw new Exception("Error");
+    }
 }
