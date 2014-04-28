@@ -40,10 +40,10 @@ class Application {
     public function init() {
         //load application config
         $appConfigFile = $this->_basePath.self::CONFIG_DIR.self::CONFIG_FILE;     
-        if (!file_exists($appConfigFile)) {
-            throw new Application\Exception("Config:".$appConfigFile." doesn't exist");           
+        $appConfig = array();
+        if (file_exists($appConfigFile)) {
+            $appConfig = include($appConfigFile);
         }
-        $appConfig = include($appConfigFile);
 
         //get route type
         if (isset($appConfig['route_type']) 
@@ -69,6 +69,7 @@ class Application {
         $this->_route = $this->buildRoute($routeType);
         $this->_template = $this->buildTemplate($templateType);
 
+        //build dispatcher
         $this->buildDispatcher();
 
         return $this;
