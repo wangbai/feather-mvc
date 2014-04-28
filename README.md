@@ -15,13 +15,11 @@ FeatherMvc is a pure php framework that only contains model-view-controller comp
     | - config.ini.php
 + application/
     | - bootstrap.php
-    | - modules
-        | + example //Example Module
-            | + controller
-                | - Index.php
-            | + template
-                |+ index
-                    | - index.tpl
+        | + controller
+            | - IndexController.php
+        | + template
+            | + indexController
+                | - indexAction.tpl
 + library
 + tests
 ```

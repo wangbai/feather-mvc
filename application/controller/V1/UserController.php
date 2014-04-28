@@ -1,8 +1,10 @@
 <?php
 
+namespace V1;
+
 use Feather\Mvc\Controller\AbstractController;
 
-class IndexController extends AbstractController {
+class UserController extends AbstractController {
 
     public function init() {
         parent::init();
@@ -13,10 +15,9 @@ class IndexController extends AbstractController {
         $response->setTemplateParam("content", "wangbai");
     }
 
-    public function noTemplateAction() {
+    public function loginAction() {
         $response = $this->getResponse();
-        $response->setNeedTemplate(false);
-        $response->setBody("Hello World!");
+        $response->setTemplateParam("name", "wangbai");
     }
 
-}
+}// END OF CLASS

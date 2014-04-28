@@ -146,7 +146,8 @@ class Dispatcher {
         $controller = $route->getControllerClassName();
         $action = $route->getActionMethodName();
 
-        $controllerFile = $this->getControllerDirectory().str_replace(DIRECTORY_SEPARATOR, "\\", $controller).".php";
+        $controllerFile = $this->getControllerDirectory().str_replace('\\', DIRECTORY_SEPARATOR, $controller).".php";
+
         if (!file_exists($controllerFile)) {
             throw new Dispatcher\Exception("The controller source:".$controllerFile." doesn't exist");   
         }
@@ -173,7 +174,7 @@ class Dispatcher {
         $controller = $route->getControllerClassName();
         $action = $route->getActionMethodName();
 
-        $templateFile = $this->getTemplateDirectory().str_replace(DIRECTORY_SEPARATOR, "\\", $controller);
+        $templateFile = $this->getTemplateDirectory().str_replace('\\', DIRECTORY_SEPARATOR, $controller);
         $templateFile .= DIRECTORY_SEPARATOR.$action.".tpl";
 
         return $this->loadTemplateByPath($templateFile, $request, $response);
