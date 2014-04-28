@@ -17,7 +17,7 @@ class Response {
     private $_needTemplate = true;
 
     //specify a template
-    private $_templateName = "";
+    private $_templatePath = "";
 
     //params for template
     private $_templateParams = array();
@@ -193,23 +193,23 @@ class Response {
     }
 
     /*
-    * Get the template name
+    * Get the template file path
     *
     * @return string
     */
-    public function getTemplateName() {
-        return $this->_templateName;
+    public function getTemplatePath() {
+        return $this->_templatePath;
     }
 
     /*
-    * Set the template name
+    * Set the template file path
     *
-    * @param string $key Name of the template 
+    * @param string $key file path of the template 
     * @return
     */
-    public function setTemplateName($templateName) {
-        $templateName = (string) $templateName;
-        $this->_templateName = $templateName;
+    public function setTemplateName($templatePath) {
+        $templatePath = (string) $templatePath;
+        $this->_templatePath = $templatePath;
         return;
     }
 

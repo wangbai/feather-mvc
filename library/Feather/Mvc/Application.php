@@ -2,14 +2,14 @@
 
 namespace Feather\Mvc\Application;
 
-use Feather\Mvc\Application\Request;
-use Feather\Mvc\Application\Response;
+use Feather\Mvc\Http\Request;
+use Feather\Mvc\Http\Response;
+
+use Feather\Mvc\Route;
+use Feather\Mvc\Template;
+use Feather\Mvc\Dispatcher;
 
 class Application {
-
-    const CLASSFILE_SUFFIX = '.php';
-
-    const TEMPLATEFILE_SUFFIX = '.tpl';
 
     const APPLICATION_DIR = 'application/';
 
@@ -25,17 +25,16 @@ class Application {
 
     protected $_response = null;
    
-    private $_route = null;
+    protected $_route = null;
 
-    private $_template = null;
+    protected $_template = null;
 
-    private $_basePath = null;   
+    protected $_dispatcher = null;
+
+    protected $_basePath = null;   
 
     public function __construct($basePath) {
-        $this->_basePath = rtrim($basePath, "/")."/";
-
-        //init
-        $this->init();
+        $this->_basePath = rtrim($basePath, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
     }
 
     public function init() {
@@ -49,125 +48,82 @@ class Application {
         //get route type
         if (isset($appConfig['route_type']) 
                 && !empty($appConfig['route_type'])) {
-            $route_type = trim($appConfig['route_type']);
+            $routeType = trim($appConfig['route_type']);
         } else {
-            $route_type = "simple";
+            $routeType = "simple";
         }
 
         //get template type
         if (isset($appConfig['template_type'])
                 && !empty($appConfig['template_type'])) {
-            $template_type = trim($appConfig['template_type']);
+            $templateType = trim($appConfig['template_type']);
         } else {
-            $template_type = "simple";
+            $templateType = "simple";
         }
 
         //define input and output
         $this->_request = new Request();
         $this->_response = new Response();
 
-        //the first config module is the default module 
-        $this->_router = new Lm_Router($this->_configModules[0]);
+        //build route and template
+        $this->_route = $this->buildRoute($routeType);
+        $this->_template = $this->buildTemplate($templateType);
+
+        $this->buildDispatcher();
+
+        return $this;
+    }
+
+    public function buildRoute($routeType) {
+        $route = null;
+        switch($routeType) {
+        case "simple":
+        default:
+            $route = new Route\Simple;
+        }
+
+        return $route;
+    }
+
+    public function buildTemplate($templateType) {
+        $template = null;
+        switch($templateType) {
+        case "simple":
+        default:
+            $template = new Template\Simple;
+        }
+
+        return $template;
+    }
+
+    public function buildDispatcher() {
+        $controllerBaseDir = $this->_basePath.self::APPLICATION_DIR.self::CONTROLLER_DIR;
+        $templateBaseDir = $this->_basePath.self::APPLICATION_DIR.self::TEMPLATE_DIR;
+
+        $this->_dispatcher = new Dispatcher; 
+        $this->_dispatcher->setControllerDirectory($controllerBaseDir);        
+        $this->_dispatcher->setTemplateDirectory($templateBaseDir);        
+        $this->_dispatcher->setRoute($this->_route);
+        $this->_dispatcher->setTemplate($this->_template);
+
+        return $this->_dispatcher;
     }
 
     /*
-    * start the application
+    * start to run application
     */
-    public function run() {
-        $response = $this->_response;
-
+    public function run(Request $request, Response $response) {
         try {
-            $this->_dispatch();
-        } catch(Lm_Application_Exception $e) {
-            $response->setHttpCode(Lm_Application_Http::ERROR_NOT_FOUND);
+            $this->_dispatch($request, $response);
+        } catch(Feature\Mvc\Exception $e) {
+            $response->setHttpCode($e->getCode());
             $response->setBody($e->getMessage());
         } catch(Exception $e) {
-            $response->setHttpCode(Lm_Application_Http::FATAL_SERVER_ERROR);
+            $response->setHttpCode(Common::SC_INTERNAL_SERVER_ERROR);
             $response->setBody($e->getMessage());
         }
- 
+
         $response->output();
-        return;
-    }
-
-    private function _dispatch() {
-        $route = $this->_router->parse($this->_request->getRequestURI());
-
-        //check module  
-        $this->_checkModule($route);
-   
-        //execute handler
-        $controller = $this->_loadController($route);
-        $action = $route->getActionMethodName();
-    
-        if (!method_exists($controller, $action)) {
-            throw new Lm_Application_NoAction("The action:".$action." doesn't exist in ".get_class($controller));
-        }
-
-        $response = $controller->__call($action, null);
-
-        //handle error
-        if ($response->isError()) {
-            throw $response->getException();
-        }
-
-        //handle template
-        if ($response->getNeedTemplate()) {
-            $templateName = $response->getTemplateName();
-            if (!empty($templateName)) {
-                $route->setAction($templateName);
-            }
-            $this->_loadTemplate($route);
-        }
-    }
-
-    private function _checkModule($route) {
-        $module = $route->getModule();
-
-        //check module
-        if (!in_array($module, $this->_configModules)) {
-            throw new Lm_Application_NoModule("The module:".$module." hasn't been configured");
-        }
-
-        $moduleDir = $this->_getModuleDirPath($route);
-        if (!is_dir($moduleDir)) {
-            throw new Lm_Application_NoModule("The module dir:".$moduleDir." does't exist");
-        }
-    }
-
-    private function _getModuleDirPath($route) {
-        $module = $route->getModule();
-        return $this->_basePath.self::APPLICATION_DIR.self::MODULE_DIR.$module."/";
-    }
-
-    private function _loadController($route) {
-        $moduleDir = $this->_getModuleDirPath($route);
-
-        $controllerClass = $route->getControllerClassName();
-        $controllerFile = $moduleDir.self::CONTROLLER_DIR.$controllerClass.self::CLASSFILE_SUFFIX;
-        if (!file_exists($controllerFile)) {
-            throw new Lm_Application_NoController("The controller source:".$controllerFile." doesn't exist");
-        }
-        
-        require ($controllerFile);
-        if (!class_exists($controllerClass)) {
-            throw new Lm_Application_NoController("The controller class:".$controllerClass." doesn't exist");
-        }
-
-        $conObj = new $controllerClass($this->_request, $this->_response); 
-        return $conObj;
-    }
-
-    private function _loadTemplate($route) {
-        $moduleDir = $this->_getModuleDirPath($route);
-        
-        $controller = $route->getController();
-        $action = $route->getAction();
-
-        $templateFile = $moduleDir.self::TEMPLATE_DIR.$controller."/".$action.self::TEMPLATEFILE_SUFFIX;
-
-        $template = new Lm_Template_Base($templateFile, $this->_response);
-        $template->load();
         return;
     }
 
