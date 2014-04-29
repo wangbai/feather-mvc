@@ -6,7 +6,7 @@ namespace Feather;
 * An autoloader conforms to PSR-0 
 */
 class Autoloader {
-    
+
     private static $_LOADER;    
 
     public static function getInstance() {    
