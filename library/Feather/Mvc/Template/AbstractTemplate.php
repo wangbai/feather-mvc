@@ -66,7 +66,7 @@ abstract class AbstractTemplate {
     * Set the template file path
     *
     * @param string $templateFilePath
-    * @return string
+    * @return
     */
     public function setTemplateFilePath($templateFilePath) {
         $templateFilePath = (string) $templateFilePath;

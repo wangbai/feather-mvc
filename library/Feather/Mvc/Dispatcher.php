@@ -22,7 +22,7 @@ class Dispatcher {
     /*
     * Get the root directory of all the controllers
     *
-    * @return
+    * @return string
     */
     public function getControllerDirectory() {
         return $this->_controllerDirectory;
@@ -38,12 +38,13 @@ class Dispatcher {
         $dir = (string) $dir;
         $dir = rtrim($dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
         $this->_controllerDirectory = $dir;
+        return;
     }
 
     /*
     * Get the root directory of all the templates
     *
-    * @return
+    * @return string
     */
     public function getTemplateDirectory() {
         return $this->_templateDirectory;
@@ -59,6 +60,7 @@ class Dispatcher {
         $dir = (string) $dir;
         $dir = rtrim($dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
         $this->_templateDirectory = $dir;
+        return;
     }
 
     /*
@@ -121,6 +123,7 @@ class Dispatcher {
         if ($response->isExceptional()) {
             throw $response->getException();
         }
+
         //handle template
         if ($response->isNeedTemplate()) {
             $templatePath = $response->getTemplatePath();

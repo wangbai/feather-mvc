@@ -65,7 +65,7 @@ class Request {
     * unset a variable that is cached in request
     *
     * @param string $key Name of the variable
-    * @return string
+    * @return
     */
     public function unsetParam($key) {
         $key = (string) $key;

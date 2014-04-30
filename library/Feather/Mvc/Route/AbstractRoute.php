@@ -90,7 +90,7 @@ abstract class AbstractRoute {
     * match the request uri to a specific combination of a controller and a action and several params
     *
     * @param Feather\Mvc\Http\Request Http Request Object
-    * @return
+    * @return bool
     */
     abstract public function match(Request $request);
 

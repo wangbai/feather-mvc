@@ -55,6 +55,8 @@ abstract class AbstractController {
 
     /*
     * handle the controller behaviour before and after action
+    *
+    * @return Feather\Mvc\Http\Response
     */
     public function __call($method, $args) {
         $response = $this->getResponse();

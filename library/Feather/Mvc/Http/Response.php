@@ -28,7 +28,7 @@ class Response {
     /*
     * Get http output
     *
-    * @return
+    * @return string
     */
     public function getBody() {
         return $this->_body;
@@ -48,7 +48,7 @@ class Response {
     /*
     * Get return value of the Controller
     *
-    * @return
+    * @return mixed
     */
     public function getReturn() {
         return $this->_return;
@@ -57,7 +57,7 @@ class Response {
     /*
     * Set return value of the Controller
     *
-    * @param $ret Return value of the Controller
+    * @param mixed $ret Return value of the Controller
     * @return
     */
     public function setReturn($ret) {
@@ -89,7 +89,7 @@ class Response {
     /*
     * Get all header option
     *
-    * @return
+    * @return array
     */
     public function getHeaders() {
         return $this->_headers;
@@ -99,7 +99,7 @@ class Response {
     * Get a varible of headers
     *
     * @param string $key Name of the variable
-    * @return
+    * @return string
     */
     public function getHeader($key) {
         $key = (string) $key;
@@ -226,7 +226,7 @@ class Response {
     * Get a variable passed to the template
     *
     * @param string $key Name of the variable
-    * @return
+    * @return string
     */
     public function getTemplateParam($key) {
         $key = (string) $key;

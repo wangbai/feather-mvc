@@ -15,9 +15,9 @@ class Autoloader {
         }
             
         return self::$_LOADER;    
-    }    
+    }
 
-    private function __contruct() {
+    private function __construct() {
     }
 
     public function init() {

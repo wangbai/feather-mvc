@@ -22,4 +22,5 @@ class IndexController extends AbstractController {
     public function errorAction() {
         throw new Exception("Error");
     }
-}
+
+}//END OF CLASS
