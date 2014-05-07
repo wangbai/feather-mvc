@@ -8,7 +8,6 @@ if (file_exists(dirname(__DIR__).'/vendor/composer')) {
 // Ensure library/ is in include_path
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(dirname(__FILE__))."/../library/",
-    "/usr/share/pear/",
     get_include_path(),
 )));
 
