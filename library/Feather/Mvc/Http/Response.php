@@ -12,6 +12,8 @@ class Response {
     private $_httpCode = Common::SC_OK;
 
     private $_headers = array();
+
+    private $_cookies = array();
  
     //whether need a template or not
     private $_needTemplate = true;
@@ -126,7 +128,7 @@ class Response {
     }
     
     /*
-    * unset a varible of headers
+    * Unset a varible of headers
     *
     * @param string $key Name of the variable
     * @return
@@ -142,7 +144,7 @@ class Response {
     }
 
     /*
-    * clear all headers
+    * Clear all headers
     *
     * @return
     */
@@ -152,7 +154,23 @@ class Response {
     }
 
     /*
-    * flush the response to output
+     * Set cookie
+     *
+     * @param string $name
+     * @param string $value
+     * @param int $expire
+     * @param string $path
+     * @param string $domain
+     * @param string $secure
+     * @param boolean $httpOnly
+     * @return boolean
+     */
+    public function setCookie($name, $value = null, $expire = null, $path = null, $domain = null, $secure = false, $httpOnly = false) {
+        return setcookie($name, $value, $expire, $path, $domain, $secure, $httpOnly);
+    }
+
+    /*
+    * Flush the response to output
     */
     public function output() {
         //output header
@@ -207,7 +225,7 @@ class Response {
     * @param string $key file path of the template 
     * @return
     */
-    public function setTemplateName($templatePath) {
+    public function setTemplatePath($templatePath) {
         $templatePath = (string) $templatePath;
         $this->_templatePath = $templatePath;
         return;
@@ -253,7 +271,7 @@ class Response {
     }
 
     /*
-    * clear all variables
+    * Clear all variables
     *
     * @return
     */

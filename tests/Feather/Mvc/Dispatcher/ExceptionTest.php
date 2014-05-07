@@ -1,13 +1,14 @@
 <?php
 
-namespace Feather\Mvc\Route;
+namespace Feather\Mvc\Dispatcher;
 
 class ExceptionTest extends \PHPUnit_Framework_TestCase {
 
     public function testNewException() {
         $this->setExpectedException(
-          'Feather\Mvc\Route\Exception'
+          'Feather\Mvc\Dispatcher\Exception'
         );
+
         throw new Exception("Bad Request");
     }
 

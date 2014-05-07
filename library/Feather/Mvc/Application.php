@@ -71,7 +71,7 @@ class Application {
         $this->_template = $this->buildTemplate($templateType);
 
         //build dispatcher
-        $this->buildDispatcher();
+        $this->_dispatcher = $this->buildDispatcher();
 
         return $this;
     }
@@ -88,11 +88,13 @@ class Application {
     }
 
     public function buildTemplate($templateType) {
+        $templateBaseDir = $this->_basePath.self::APPLICATION_DIR.self::TEMPLATE_DIR;
+
         $template = null;
         switch($templateType) {
         case "simple":
         default:
-            $template = new Template\Simple;
+            $template = new Template\Simple($templateBaseDir, $this->_request, $this->_response);
         }
 
         return $template;
@@ -100,15 +102,13 @@ class Application {
 
     public function buildDispatcher() {
         $controllerBaseDir = $this->_basePath.self::APPLICATION_DIR.self::CONTROLLER_DIR;
-        $templateBaseDir = $this->_basePath.self::APPLICATION_DIR.self::TEMPLATE_DIR;
+        $dispatcher = new Dispatcher($controllerBaseDir, 
+                                $this->_route, 
+                                $this->_template, 
+                                $this->_request, 
+                                $this->_response); 
 
-        $this->_dispatcher = new Dispatcher; 
-        $this->_dispatcher->setControllerDirectory($controllerBaseDir);        
-        $this->_dispatcher->setTemplateDirectory($templateBaseDir);        
-        $this->_dispatcher->setRoute($this->_route);
-        $this->_dispatcher->setTemplate($this->_template);
-
-        return $this->_dispatcher;
+        return $dispatcher;
     }
 
     /*
@@ -116,7 +116,7 @@ class Application {
     */
     public function run() {
         try {
-            $this->_dispatcher->run($this->_request, $this->_response);
+            $response = $this->_dispatcher->run($this->_request, $this->_response);
         } catch(Feature\Mvc\Exception $e) {
             $this->_response->setHttpCode($e->getCode());
             $this->_response->setBody($e->getMessage());

@@ -13,12 +13,31 @@ class Dispatcher {
     
     private $_controllerDirectory = "";
 
-    private $_templateDirectory = "";
-
     private $_route = null;
-    
+ 
     private $_template = null;
 
+    private $_request = null;
+
+    private $_response = null;
+ 
+    /*
+    * Create a dispatcher instance
+    *
+    * @param string $controllerDirectory
+    * @param Feather\Mvc\Route\AbstractRoute $route
+    * @param Feather\Mvc\Template\AbstractTemplate $template
+    * @param Feather\Mvc\Http\Request $request
+    * @param Feather\Mvc\Http\Response $response
+    */
+    public function __construct($controllerDirectory, AbstractRoute $route, AbstractTemplate $template, Request $request, Response $response) {
+        $this->setControllerDirectory($controllerDirectory);
+        $this->setRoute($route);
+        $this->setTemplate($template);
+        $this->setRequest($request);
+        $this->setResponse($response);
+    }
+  
     /*
     * Get the root directory of all the controllers
     *
@@ -38,28 +57,6 @@ class Dispatcher {
         $dir = (string) $dir;
         $dir = rtrim($dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
         $this->_controllerDirectory = $dir;
-        return;
-    }
-
-    /*
-    * Get the root directory of all the templates
-    *
-    * @return string
-    */
-    public function getTemplateDirectory() {
-        return $this->_templateDirectory;
-    }
-
-    /*
-    * Set the root directory of all the templates
-    *
-    * @param string $dir
-    * @return
-    */
-    public function setTemplateDirectory($dir) {
-        $dir = (string) $dir;
-        $dir = rtrim($dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
-        $this->_templateDirectory = $dir;
         return;
     }
 
@@ -95,7 +92,7 @@ class Dispatcher {
     /*
     * Set the associated template
     *
-    * @param Feather\Mvc\Route\AbstractTemplate template
+    * @param Feather\Mvc\Route\AbstractTemplate $template
     * @return
     */
     public function setTemplate(AbstractTemplate $template) {
@@ -104,21 +101,64 @@ class Dispatcher {
     }
 
     /*
-    * run the application to handle the request
+    * Get the request associated with the template
     *
-    * @param Feather\Mvc\Http\Request $request 
-    * @param Feather\Mvc\Http\Reponse $response
+    * @return Feather\Mvc\Http\Request
+    */
+    public function getRequest() {
+        return $this->_request;
+    }
+
+    /*
+    * Set the request associated with the template
+    *
+    * @param Feather\Mvc\Http\Request $request
+    * @return
+    */
+    public function setRequest(Request $request) {
+        $this->_request = $request;
+        return;
+    }
+
+    /*
+    * Get the response associated with the template
+    *
+    * @return Feather\Mvc\Http\Response
+    */
+    public function getResponse() {
+        return $this->_response;
+    }
+
+    /*
+    * Set the response associated with the template
+    *
+    * @param Feather\Mvc\Http\Response $response
+    * @return
+    */
+    public function setResponse(Response $response) {
+        $this->_response = $response;
+        return;
+    }
+
+    /*
+    * Run the action according to the request
+    *
     * @return Feather\Mvc\Http\Reponse
     */
-    public function run(Request $request, Response $response) {
+    public function run() {
         $route = $this->getRoute();
+        $request = $this->getRequest();
 
         $isMatched = $route->match($request);
         if (!$isMatched) {
             throw new Dispatcher\Exception($request->getRequestURI()." is not Found", Common::SC_NOT_FOUND);
         }
 
-        $response = $this->loadClass($request, $response);
+        $controller = $route->getControllerClassName();
+        $action = $route->getActionMethodName();
+
+        $response = $this->_run($controller, $action);
+
         //handle error
         if ($response->isExceptional()) {
             throw $response->getException();
@@ -128,77 +168,36 @@ class Dispatcher {
         if ($response->isNeedTemplate()) {
             $templatePath = $response->getTemplatePath();
             if (empty($templatePath)) {
-                $this->loadTemplate($request, $response);
-            } else {
-                $this->loadTemplateByPath($templatePath, $request, $response);
+                $templatePath = str_replace('\\', DIRECTORY_SEPARATOR, $controller).DIRECTORY_SEPARATOR.$action.".tpl";
             }
+            
+            $content = $this->getTemplate()->render($templatePath);
+            $response->setBody($content);
         }
-
         return $response;
     }
 
     /*
-    * load the controller and execute the action
-    *
-    * @param Feather\Mvc\Http\Request $request 
-    * @param Feather\Mvc\Http\Reponse $response
+    * load the controller and run the action
+    * 
     * @return Feather\Mvc\Http\Reponse
     */
-    public function loadClass(Request $request, Response $response) {
-        $route = $this->getRoute();
-        $controller = $route->getControllerClassName();
-        $action = $route->getActionMethodName();
+    protected function _run($controller, $action) {
+        $request = $this->getRequest();
+        $response = $this->getResponse();
 
         $controllerFile = $this->getControllerDirectory().str_replace('\\', DIRECTORY_SEPARATOR, $controller).".php";
-
         if (!file_exists($controllerFile)) {
             throw new Dispatcher\Exception("The controller source:".$controllerFile." doesn't exist");   
         }
 
-        include($controllerFile);
+        include_once($controllerFile);
 
         if (!class_exists($controller)) {
             throw new Dispatcher\Exception("The controller class:".$controller." doesn't exist");
         }
-
         $conObj = new $controller($request, $response);
         return $conObj->__call($action, null);
     }
-
-    /*
-    * load the template file and generate the output body
-    *
-    * @param Feather\Mvc\Http\Request $request 
-    * @param Feather\Mvc\Http\Reponse $response
-    * @return Feather\Mvc\Http\Reponse
-    */
-    public function loadTemplate(Request $request, Response $response) {
-        $route = $this->getRoute();
-        $controller = $route->getControllerClassName();
-        $action = $route->getActionMethodName();
-
-        $templateFile = $this->getTemplateDirectory().str_replace('\\', DIRECTORY_SEPARATOR, $controller);
-        $templateFile .= DIRECTORY_SEPARATOR.$action.".tpl";
-
-        return $this->loadTemplateByPath($templateFile, $request, $response);
-    }
-
-    /*
-    * load the template file and generate the output body
-    *
-    * @param string $path
-    * @param Feather\Mvc\Http\Request $request 
-    * @param Feather\Mvc\Http\Reponse $response
-    * @return Feather\Mvc\Http\Reponse
-    */
-    public function loadTemplateByPath($path, Request $request, Response $response) {
-        $template = $this->getTemplate();
-
-        $template->setTemplateFilePath($path);
-        $template->setRequest($request);
-        $template->setResponse($response);
-
-        return $template->load();
-    }
-
+    
 }// END OF CLASS

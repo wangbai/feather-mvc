@@ -5,61 +5,61 @@ namespace Feather\Mvc\Route;
 use Feather\Mvc\Http\Request;
 
 abstract class AbstractRoute {
-    
+ 
     const ACTION_SUFFIX = "Action";
     
     const CONTROLLER_SUFFIX = "Controller";
 
-    //cached controller class name
-    private $_controllerClassName = "";
+    //cached action name
+    private $_actionName = "";
 
-    //cached action method name
-    private $_actionMethodName = "";
+    //cached controller name
+    private $_controllerName = "";
 
     //cached params
     private $_params = array();
 
     /*
-    * Get the matched controller class name
+    * Get the controller name
     *
-    * @return string 
+    * @return string
     */
-    public function getControllerClassName() {
-        return $this->_controllerClassName;
+    public function getControllerName() {
+        return $this->_controllerName;
     }
 
     /*
-    * Set the matched controller class name
+    * Set the controller name
     *
-    * @param string $controller Class name
+    * @param string $controllerName Name of the controller
     * @return
     */
-    public function setControllerClassName($controller) {
-        $controller = (string) $controller;
-        $this->_controllerClassName = $controller;
+    public function setControllerName($controllerName) {
+        $controllerName = (string) $controllerName;
 
+        $this->_controllerName = $controllerName;
         return;
     }
 
     /*
-    * Get the matched action method name
+    * Get the action name
     *
-    * @return string 
+    * @return string
     */
-    public function getActionMethodName() {
-        return $this->_actionMethodName;
+    public function getActionName() {
+        return $this->_actionName;
     }
 
     /*
-    * Set the matched action method name
+    * Set the action name
     *
-    * @param string $action method name
+    * @param string $actionName Name of the action
     * @return
     */
-    public function setActionMethodName($action) {
-        $action = (string) $action;
-        $this->_actionMethodName = $action;
+    public function setActionName($actionName) {
+        $actionName = (string) $actionName;
 
+        $this->_actionName = $actionName;
         return;
     }
 
@@ -84,6 +84,24 @@ abstract class AbstractRoute {
         $this->_params[$key] = $value;
 
         return;
+    }
+
+    /*
+    * Get the matched controller class name
+    *
+    * @return string 
+    */
+    public function getControllerClassName() {
+        return $this->_controllerName.self::CONTROLLER_SUFFIX;
+    }
+
+    /*
+    * Get the matched action method name
+    *
+    * @return string 
+    */
+    public function getActionMethodName() {
+        return $this->_actionName.self::ACTION_SUFFIX;
     }
 
     /*

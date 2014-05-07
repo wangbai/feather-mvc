@@ -6,29 +6,26 @@ use Feather\Mvc\Http\Response;
 
 class Simple extends AbstractTemplate {
     
-    public function load() {
-        $response = $this->getResponse();
-        if (empty($response)) {
-            throw new Exception("No response is set");
+    public function render($templateFilePath) {
+        $templateFilePath = $this->getRealPathOfTemplateFile($templateFilePath);
+        if (empty($templateFilePath) || !file_exists($templateFilePath)) {
+            throw new Exception("Template File:".$templateFilePath." is invalid");
         }
 
+        //release the input params
+        $response = $this->getResponse();
         $params = $response->getTemplateParams();
         if (!empty($params)) {
             extract($params);
         }
 
-        $templateFilePath = $this->getTemplateFilePath();
-        if (empty($templateFilePath) || !file_exists($templateFilePath)) {
-            throw new Exception("Template File:".$templateFilePath." is invalid");
-        }
-
         //parse the template       
         ob_start();
+        ob_implicit_flush(0);
         include $templateFilePath;
         $content = ob_get_clean();
 
-        $response->setBody($content);
-        return $response;
+        return $content;
     }
 
 }// END OF CLASS

@@ -96,4 +96,12 @@ class SimpleTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(true, $isMatched);
     }
 
+    public function testWrongController() {
+        $this->_request->expects($this->any())
+             ->method('getRequestURI')
+             ->will($this->returnValue('/example/user/1/comment/rating_score'));
+        $isMatched = $this->_route->match($this->_request);
+        $this->assertEquals(false, $isMatched);
+    }
+
 }// END OF CLASS

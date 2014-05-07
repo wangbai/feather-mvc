@@ -7,11 +7,47 @@ use Feather\Mvc\Http\Response;
 
 abstract class AbstractTemplate {
 
+    private $_baseDirectory = "";
+
     private $_request = null;
 
     private $_response = null;
 
-    private $_templateFilePath = "";
+    /*
+    * Create a template handler instance
+    *
+    * @param string $baseDirectory
+    * @param Feather\Mvc\Http\Request $request
+    * @param Feather\Mvc\Http\Response $response
+    */
+    public function __construct($baseDirectory, Request $request, Response $response) {
+        $this->setBaseDirectory($baseDirectory);
+        $this->setRequest($request);
+        $this->setResponse($response);
+    }
+
+    /*
+    * Get the directory of all the template files
+    *
+    * @return string
+    */
+    public function getBaseDirectory() {
+        return $this->_baseDirectory;
+    }
+
+    /*
+    * Set the directory of all the template files
+    *
+    * @param string $baseDirectory
+    * @return
+    */
+    public function setBaseDirectory($baseDirectory) {
+        $baseDirectory = (string) $baseDirectory;
+        $baseDirectory = rtrim($baseDirectory, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR; 
+
+        $this->_baseDirectory = $baseDirectory;
+        return;
+    }
 
     /*
     * Get the request associated with the template
@@ -54,32 +90,20 @@ abstract class AbstractTemplate {
     }
 
     /*
-    * Get the template file path
+    * Get the real path of the template handler in the application
     *
+    * @param $templateFilePath
     * @return string
     */
-    public function getTemplateFilePath() {
-        return $this->_templateFilePath;
+    public function getRealPathOfTemplateFile($templateFilePath) {
+        return $this->_baseDirectory.ltrim($templateFilePath, DIRECTORY_SEPARATOR);
     }
 
     /*
-    * Set the template file path
+    * Parse the template file, finally return the whole content
     *
-    * @param string $templateFilePath
-    * @return
+    * @return string 
     */
-    public function setTemplateFilePath($templateFilePath) {
-        $templateFilePath = (string) $templateFilePath;
-
-        $this->_templateFilePath = $templateFilePath;
-        return;
-    }
-
-    /*
-    * load and parse the template file, finally put the body into response
-    *
-    * @return Feather\Mvc\Http\Response
-    */
-    abstract public function load();
+    abstract public function render($templateFilePath);
 
 }// END OF CLASS

@@ -16,7 +16,7 @@ class Request {
     private $_headers = array();
  
     /*
-    * retrieve $_GET and $_POST
+    * Get $_GET and $_POST
     *
     * @return array
     */ 
@@ -28,7 +28,7 @@ class Request {
     }
 
     /*
-    * retrieve a variable of $_GET or $_POST
+    * Get a variable of $_GET or $_POST
     *
     * @param string $key Name of the variable
     * @param string $default 
@@ -48,7 +48,7 @@ class Request {
     }
 
     /*
-    * set a variable that is cached in request
+    * Set a variable that is cached in request
     *
     * @param string $key Name of the variable
     * @param string $value Value of the variable
@@ -62,7 +62,7 @@ class Request {
     }
 
     /*
-    * unset a variable that is cached in request
+    * Unset a variable that is cached in request
     *
     * @param string $key Name of the variable
     * @return
@@ -77,7 +77,7 @@ class Request {
     }
 
     /*
-    * retrieve $_COOKIE
+    * Get $_COOKIE
     *
     * @return array
     */
@@ -86,7 +86,7 @@ class Request {
     }
 
     /*
-    * retrieve a variable of $_COOKIE
+    * Get a variable of $_COOKIE
     * 
     * @param string $key Name of the variable
     * @param string $default
@@ -103,7 +103,7 @@ class Request {
     }
 
     /*
-    * retrieve all headers
+    * Get all headers
     *
     * @return array
     */
@@ -148,7 +148,7 @@ class Request {
     }
 
     /*
-    * retrieve a variable of header
+    * Get a variable of header
     *
     * @param string $key Name of the variable
     * @param string $default

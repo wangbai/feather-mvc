@@ -25,19 +25,22 @@ class Simple extends AbstractRoute {
         }
         
         //normalize $controller
-        $controller = $this->_normalizeController($controller);    
-        $action = $this->_normalizeAction($action);    
+        $action = self::_normalizeAction($action);    
+        $controller = self::_normalizeController($controller);    
     
-        $this->setControllerClassName($controller);
-        $this->setActionMethodName($action);
+        if (empty($controller) || empty($action)) {
+            return false;
+        }
 
+        $this->setActionName($action);
+        $this->setControllerName($controller);
         return true;
     }
 
-    private function _normalizeController($controller) {
+    protected static function _normalizeController($controller) {
         $controller = strtolower($controller);
         if (empty($controller)) {
-            return self::DEFAULT_CONTROLLER.self::CONTROLLER_SUFFIX;
+            return self::DEFAULT_CONTROLLER;
         }
 
         $controller = str_replace('_', DIRECTORY_SEPARATOR, $controller);
@@ -45,29 +48,40 @@ class Simple extends AbstractRoute {
 
         $clazzParts = array();
         foreach ($parts as $p) {
+            if (!self::isCharFirst($p)) {
+                return false;
+            }
             $clazzParts[] = ucfirst($p);
         }
-        
-        return implode("\\", $clazzParts).self::CONTROLLER_SUFFIX;
-    }    
 
-    private function _normalizeAction($action) {
+        return implode("\\", $clazzParts);
+    }
+
+    protected static function _normalizeAction($action) {
         $action = strtolower($action);
         $action = explode(".", $action);
         $action = $action[0];
 
         if (empty($action)) {
-            return self::DEFAULT_ACTION.self::ACTION_SUFFIX;
+            return self::DEFAULT_ACTION;
         }
-        
+
         $parts = explode('_', $action);
         $actionNor = array_shift($parts);
 
         foreach ($parts as $p) {
+            if (!self::isCharFirst($p)) {
+                return false;
+            }
             $actionNor .= ucfirst($p);
         }
 
-        return $actionNor.self::ACTION_SUFFIX;
+        return $actionNor;
+    }
+
+    protected static function isCharFirst($text) {
+        $first = substr($text,0,1);
+        return true === ctype_alpha($first);
     }
 
 }// END OF CLASS
