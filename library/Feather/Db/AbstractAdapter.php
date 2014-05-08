@@ -1,6 +1,6 @@
 <?php
 
-namespace \Feather\Db;
+namespace Feather\Db;
 
 abstract class AbstractAdapter {
     
@@ -8,12 +8,12 @@ abstract class AbstractAdapter {
        
     //default configuration for the db connection
     protected $_config = array(
-        'host'       => '',
-        'port'       => 3306,
-        'user'       => '',
-        'password'   => '',
-        'database'   => '',
-        'charset'    => 'utf8'
+        'host'      => '',
+        'port'      => 3306,
+        'user'      => '',
+        'password'  => '',
+        'database'  => '',
+        'charset'   => 'utf8'
     );
 
     //db connection
@@ -25,7 +25,7 @@ abstract class AbstractAdapter {
     * @param array $config Database config
     */
     public function __construct($config) {
-        $this->_config += $config;
+        $this->_config = array_merge($this->_config, $config);
     }
 
     /*
@@ -38,12 +38,11 @@ abstract class AbstractAdapter {
         $this->connect();
 
         $result = $this->_query($sql);
-        if (!$result) {
+        if ($result) {
             return $result;
         }
 
         $this->_throwDbException();
-
     }
 
     /*
@@ -60,13 +59,21 @@ abstract class AbstractAdapter {
         $remain = $sql;
         foreach ($param as $p) {
             $field = $this->escape($p);
-            $replacePos = strpos($sql, FIELD_REPLACER);
+            $replacePos = strpos($remain, self::FIELD_REPLACER);
+
+            //no replacer for the param 
+            if (empty($replacePos)) {
+                break;
+            }
+
             $finalSql .= substr($remain, 0, $replacePos)."'".$this->escape($p)."'";
             $remain =  substr($remain, $replacePos + 1);
+            if (empty($remain)) {
+                break;
+            }
         }
-        $finalSql .= $remain;
-            
-        $result = $this->_query($sql);
+
+        $result = $this->_query($finalSql);
         if (!$result) {
             return $result;
         }

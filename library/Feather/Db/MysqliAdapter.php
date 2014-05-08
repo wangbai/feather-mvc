@@ -1,8 +1,8 @@
 <?php
 
-namespace \Feather\Db;
+namespace Feather\Db;
 
-abstract class MysqliAdapter {
+class MysqliAdapter extends AbstractAdapter {
 
     public function connect() {
         if (!empty($this->_connection)) {
@@ -13,8 +13,7 @@ abstract class MysqliAdapter {
             throw new Exception('No mysqli extension installed');
         }
 
-        $this->_connection = mysqli_init();
-
+        $connection = mysqli_init();
         $config = $this->_config;
         $host = $config['host'];
         $port = $config['port'];
@@ -23,11 +22,12 @@ abstract class MysqliAdapter {
         $database = $config['database'];
         $charset = $config['charset'];
 
-        $ret = mysqli_real_connect($host, $user, $password, $database, $port);
+        $ret = @mysqli_real_connect($connection, $host, $user, $password, $database, $port);
         if (!$ret) {
             $this->_throwDbException();
         }
 
+        $this->_connection = $connection;
         $ret = $this->_connection->set_charset($charset);
         if (!$ret) {
             $this->_throwDbException();
@@ -43,8 +43,14 @@ abstract class MysqliAdapter {
     protected function escape($string) {
         return $this->_connection->real_escape_string($string);
     }
+
     protected function _query($sql) {
-        return $this->_connection->query($sql);
+        $result = $this->_connection->query($sql);        
+        if ($result === true || $result === false) {
+            return $result;
+        }
+        
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     protected function _throwDbException() {
@@ -52,8 +58,8 @@ abstract class MysqliAdapter {
             throw new Exception($this->_connection->error,
                             $this->_connection->errno);
         } else {
-            throw new Exception($this->_connection->connect_error,
-                            $this->_connection->connect_errno);
+            throw new Exception(mysqli_connect_error(),
+                           mysqli_connect_errno());
         }
     }
 
