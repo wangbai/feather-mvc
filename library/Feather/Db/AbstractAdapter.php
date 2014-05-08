@@ -19,10 +19,21 @@ abstract class AbstractAdapter {
     //db connection
     protected $_connection = null;
 
+    /*
+    * Create a Db adapter instance
+    *
+    * @param array $config Database config
+    */
     public function __construct($config) {
         $this->_config += $config;
     }
 
+    /*
+    * Execute a sql
+    *
+    * @param string $sql
+    * @return mixed 
+    */
     public function query($sql) {
         $this->connect();
 
@@ -35,6 +46,13 @@ abstract class AbstractAdapter {
 
     }
 
+    /*
+    * Execute a sql
+    *
+    * @param string $sql
+    * @param array $param
+    * @return mixed
+    */
     public function secureQuery($sql, $param = array()) {
         $this->connect();
         
@@ -57,22 +75,49 @@ abstract class AbstractAdapter {
     }
 
 
+    /*
+    * Connect to the DB server
+    */
     abstract public function connect();
 
+    /*
+    * Release the connection to the DB server
+    */
     abstract public function close();
 
+    /*
+    * Escape the special characters
+    */ 
     abstract protected function escape($string);
 
+    /*
+    * Actually send the query to DB server
+    */
     abstract protected function _query($sql);
 
+    /*
+    * throw the error of the DB server
+    */
     abstract protected function _throwDbException();
 
+    /*
+    * the number of the affected row
+    */
     abstract public function affectedRowsNum();
 
+    /*
+    * begin transaction
+    */
     abstract public function beginTransaction();
 
+    /*
+    * commit the transaction
+    */
     abstract public function commit();
 
+    /*
+    * rollback the transaction
+    */
     abstract public function rollback();
 
 }// END OF CLASS
