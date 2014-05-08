@@ -81,7 +81,6 @@ abstract class AbstractAdapter {
         $this->_throwDbException();
     }
 
-
     /*
     * Connect to the DB server
     */
