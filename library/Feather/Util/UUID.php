@@ -27,7 +27,7 @@ class UUID {
      * @param   uuid    $namespace
      * @param   string  $name
      */
-    static public function v3($namespace, $name) {
+    static public function getV3UUID($namespace, $name) {
         if(!self::is_valid($namespace)) return false;
  
         // Get hexadecimal components of namespace
@@ -72,7 +72,7 @@ class UUID {
      * 
      * Version 4 UUIDs are pseudo-random.
      */
-    static public function v4() {
+    static public function getV4UUID() {
         return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
  
         // 32 bits for "time_low"
@@ -105,7 +105,7 @@ class UUID {
      * @param   uuid    $namespace
      * @param   string  $name
      */
-    static public function v5($namespace, $name) {
+    static public function getV5UUID($namespace, $name) {
         if(!self::is_valid($namespace)) return false;
  
         // Get hexadecimal components of namespace
@@ -150,6 +150,14 @@ class UUID {
     static public function is_valid($uuid) {
         return preg_match('/^\{?[0-9a-f]{8}\-?[0-9a-f]{4}\-?[0-9a-f]{4}\-?'.
                       '[0-9a-f]{4}\-?[0-9a-f]{12}\}?$/i', $uuid) === 1;
+    }
+
+    /*
+    * customized uuid
+    */
+    static public function getCustomizedUUID($namespace) {
+        $prefix = hash('crc32', $namespace, false);
+        return $prefix."-".self::getV4UUID();
     }
 
 }// END OF CLASS
