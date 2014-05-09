@@ -27,8 +27,7 @@ class UUID {
      * @param   uuid    $namespace
      * @param   string  $name
      */
-    static public function v3($namespace, $name)
-    {
+    static public function v3($namespace, $name) {
         if(!self::is_valid($namespace)) return false;
  
         // Get hexadecimal components of namespace
@@ -38,8 +37,7 @@ class UUID {
         $nstr = '';
  
         // Convert Namespace UUID to bits
-        for($i = 0; $i < strlen($nhex); $i+=2) 
-        {
+        for($i = 0; $i < strlen($nhex); $i+=2) {
             $nstr .= chr(hexdec($nhex[$i].$nhex[$i+1]));
         }
  
@@ -74,8 +72,7 @@ class UUID {
      * 
      * Version 4 UUIDs are pseudo-random.
      */
-    static public function v4() 
-    {
+    static public function v4() {
         return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
  
         // 32 bits for "time_low"
@@ -108,8 +105,7 @@ class UUID {
      * @param   uuid    $namespace
      * @param   string  $name
      */
-    static public function v5($namespace, $name) 
-    {
+    static public function v5($namespace, $name) {
         if(!self::is_valid($namespace)) return false;
  
         // Get hexadecimal components of namespace
@@ -119,8 +115,7 @@ class UUID {
         $nstr = '';
  
         // Convert Namespace UUID to bits
-        for($i = 0; $i < strlen($nhex); $i+=2) 
-        {
+        for($i = 0; $i < strlen($nhex); $i+=2) {
             $nstr .= chr(hexdec($nhex[$i].$nhex[$i+1]));
         }
  
