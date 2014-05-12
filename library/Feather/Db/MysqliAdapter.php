@@ -14,6 +14,7 @@ class MysqliAdapter extends AbstractAdapter {
         }
 
         $connection = mysqli_init();
+
         $config = $this->_config;
         $host = $config['host'];
         $port = $config['port'];
@@ -40,7 +41,7 @@ class MysqliAdapter extends AbstractAdapter {
         return $this->_connection->close();
     }
 
-    protected function escape($string) {
+    public function escape($string) {
         return $this->_connection->real_escape_string($string);
     }
 

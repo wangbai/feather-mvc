@@ -94,7 +94,7 @@ abstract class AbstractAdapter {
     /*
     * Escape the special characters
     */ 
-    abstract protected function escape($string);
+    abstract public function escape($string);
 
     /*
     * Actually send the query to DB server
