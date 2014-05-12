@@ -152,12 +152,45 @@ class UUID {
                       '[0-9a-f]{4}\-?[0-9a-f]{12}\}?$/i', $uuid) === 1;
     }
 
+    /*  
+    * Mongo Object ID
+    * time - 4 byte(char)
+    * machine id - 3 byte(char)
+    * pid - 2 byte(char)
+    * inc - 3 byte(char)
+    *
+    * @return string 24 length string
+    */
+    static public function getMongoUUID() {
+        static $incBase = false;
+
+        if ($incBase === false) {
+            $incBase = mt_rand(0, 0xffffff);
+        }
+
+        $time = time();
+        $machineId = mt_rand(0, 0xffffff);
+        $processId = getmypid();
+        $inc = ++$incBase;
+
+        return sprintf(
+            "%08x%06x%04x%06x",
+            $time,
+            $machineId,
+            $processId,
+            $inc
+        );  
+    }
+
     /*
     * customized uuid
+    *
+    * @return 33 length string
     */
     static public function getCustomizedUUID($namespace) {
         $prefix = hash('crc32', $namespace, false);
-        return $prefix."-".self::getV4UUID();
+        return $prefix."-".self::getMongoUUID();
     }
 
+    
 }// END OF CLASS
