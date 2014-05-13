@@ -19,7 +19,7 @@ abstract class AbstractAdapter {
     //db connection
     protected $_connection = null;
 
-    /*
+    /**
     * Create a Db adapter instance
     *
     * @param array $config Database config
@@ -28,7 +28,7 @@ abstract class AbstractAdapter {
         $this->_config = array_merge($this->_config, $config);
     }
 
-    /*
+    /**
     * Execute a sql
     *
     * @param string $sql
@@ -45,7 +45,7 @@ abstract class AbstractAdapter {
         $this->_throwDbException();
     }
 
-    /*
+    /**
     * Execute a sql
     *
     * @param string $sql
@@ -81,48 +81,66 @@ abstract class AbstractAdapter {
         $this->_throwDbException();
     }
 
-    /*
+    /**
     * Connect to the DB server
+    * 
+    * @return
     */
     abstract public function connect();
 
-    /*
+    /**
     * Release the connection to the DB server
+    *
+    * @return bool
     */
     abstract public function close();
 
-    /*
+    /**
     * Escape the special characters
+    *
+    * @param string $str
+    * @return string
     */ 
-    abstract public function escape($string);
+    abstract public function escape($str);
 
-    /*
+    /**
     * Actually send the query to DB server
+    *
+    * @param $sql input SQL query
+    * @return mixed
     */
     abstract protected function _query($sql);
 
-    /*
+    /**
     * throw the error of the DB server
     */
     abstract protected function _throwDbException();
 
-    /*
+    /**
     * the number of the affected row
+    *
+    * @return int
     */
     abstract public function affectedRowsNum();
 
-    /*
+    /**
     * begin transaction
+    *
+    * @return
     */
     abstract public function beginTransaction();
 
-    /*
+    /**
     * commit the transaction
+    *
+    * @return
     */
     abstract public function commit();
 
-    /*
+    /**
     * rollback the transaction
+    *
+    * @return
     */
     abstract public function rollback();
 

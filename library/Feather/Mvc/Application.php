@@ -111,7 +111,7 @@ class Application {
         return $dispatcher;
     }
 
-    /*
+    /**
     * start to run application
     */
     public function run() {

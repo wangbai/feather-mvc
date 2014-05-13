@@ -19,7 +19,7 @@ abstract class AbstractRoute {
     //cached params
     private $_params = array();
 
-    /*
+    /**
     * Get the controller name
     *
     * @return string
@@ -28,7 +28,7 @@ abstract class AbstractRoute {
         return $this->_controllerName;
     }
 
-    /*
+    /**
     * Set the controller name
     *
     * @param string $controllerName Name of the controller
@@ -41,7 +41,7 @@ abstract class AbstractRoute {
         return;
     }
 
-    /*
+    /**
     * Get the action name
     *
     * @return string
@@ -50,7 +50,7 @@ abstract class AbstractRoute {
         return $this->_actionName;
     }
 
-    /*
+    /**
     * Set the action name
     *
     * @param string $actionName Name of the action
@@ -63,7 +63,7 @@ abstract class AbstractRoute {
         return;
     }
 
-    /*
+    /**
     * Get all params
     *
     * @return array
@@ -72,7 +72,7 @@ abstract class AbstractRoute {
         return $this->_params;
     }
 
-    /*
+    /**
     * set a variable
     *
     * @param string $key Name of the variable
@@ -86,7 +86,7 @@ abstract class AbstractRoute {
         return;
     }
 
-    /*
+    /**
     * Get the matched controller class name
     *
     * @return string 
@@ -95,7 +95,7 @@ abstract class AbstractRoute {
         return $this->_controllerName.self::CONTROLLER_SUFFIX;
     }
 
-    /*
+    /**
     * Get the matched action method name
     *
     * @return string 
@@ -104,7 +104,7 @@ abstract class AbstractRoute {
         return $this->_actionName.self::ACTION_SUFFIX;
     }
 
-    /*
+    /**
     * match the request uri to a specific combination of a controller and a action and several params
     *
     * @param Feather\Mvc\Http\Request Http Request Object

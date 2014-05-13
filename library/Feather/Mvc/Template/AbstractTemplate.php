@@ -13,7 +13,7 @@ abstract class AbstractTemplate {
 
     private $_response = null;
 
-    /*
+    /**
     * Create a template handler instance
     *
     * @param string $baseDirectory
@@ -26,7 +26,7 @@ abstract class AbstractTemplate {
         $this->setResponse($response);
     }
 
-    /*
+    /**
     * Get the directory of all the template files
     *
     * @return string
@@ -35,7 +35,7 @@ abstract class AbstractTemplate {
         return $this->_baseDirectory;
     }
 
-    /*
+    /**
     * Set the directory of all the template files
     *
     * @param string $baseDirectory
@@ -49,7 +49,7 @@ abstract class AbstractTemplate {
         return;
     }
 
-    /*
+    /**
     * Get the request associated with the template
     *
     * @return Feather\Mvc\Http\Request
@@ -58,7 +58,7 @@ abstract class AbstractTemplate {
         return $this->_request;
     }
 
-    /*
+    /**
     * Set the request associated with the template
     *
     * @param Feather\Mvc\Http\Request $request
@@ -69,7 +69,7 @@ abstract class AbstractTemplate {
         return;
     }
 
-    /*
+    /**
     * Get the response associated with the template
     *
     * @return Feather\Mvc\Http\Response
@@ -78,7 +78,7 @@ abstract class AbstractTemplate {
         return $this->_response;
     }
 
-    /*
+    /**
     * Set the response associated with the template
     *
     * @param Feather\Mvc\Http\Response $response
@@ -89,7 +89,7 @@ abstract class AbstractTemplate {
         return;
     }
 
-    /*
+    /**
     * Get the real path of the template handler in the application
     *
     * @param $templateFilePath
@@ -99,7 +99,7 @@ abstract class AbstractTemplate {
         return $this->_baseDirectory.ltrim($templateFilePath, DIRECTORY_SEPARATOR);
     }
 
-    /*
+    /**
     * Parse the template file, finally return the whole content
     *
     * @return string 

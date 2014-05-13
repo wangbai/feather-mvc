@@ -15,7 +15,7 @@ class Request {
     //cache for headers
     private $_headers = array();
  
-    /*
+    /**
     * Get $_GET and $_POST
     *
     * @return array
@@ -27,7 +27,7 @@ class Request {
         return $ret;
     }
 
-    /*
+    /**
     * Get a variable of $_GET or $_POST
     *
     * @param string $key Name of the variable
@@ -47,7 +47,7 @@ class Request {
         return $default;
     }
 
-    /*
+    /**
     * Set a variable that is cached in request
     *
     * @param string $key Name of the variable
@@ -61,7 +61,7 @@ class Request {
         return;
     }
 
-    /*
+    /**
     * Unset a variable that is cached in request
     *
     * @param string $key Name of the variable
@@ -76,7 +76,7 @@ class Request {
         return;
     }
 
-    /*
+    /**
     * Get $_COOKIE
     *
     * @return array
@@ -85,7 +85,7 @@ class Request {
         return $_COOKIE;
     }
 
-    /*
+    /**
     * Get a variable of $_COOKIE
     * 
     * @param string $key Name of the variable
@@ -102,7 +102,7 @@ class Request {
         return $default;
     }
 
-    /*
+    /**
     * Get all headers
     *
     * @return array
@@ -147,7 +147,7 @@ class Request {
         return $ret;
     }
 
-    /*
+    /**
     * Get a variable of header
     *
     * @param string $key Name of the variable
@@ -165,7 +165,7 @@ class Request {
         return $default;
     }
 
-    /*
+    /**
     * Get the raw post body
     *
     * @return string
@@ -181,7 +181,7 @@ class Request {
         return $this->_rawBody;
     }
 
-    /*
+    /**
     * Get $_SERVER
     *
     * @return array
@@ -190,7 +190,7 @@ class Request {
         return $_SERVER;
     }
 
-    /*
+    /**
     * Get a variable of $_SERVER
     *
     * @param string $key Name of the varible
@@ -207,7 +207,7 @@ class Request {
         return $default;
     }
 
-    /*
+    /**
     * Get the request uri
     *
     * @return string
@@ -250,7 +250,7 @@ class Request {
         return $this->getServer('HTTPS') == 'on';
     }
     
-    /*
+    /**
     * Get Http Method: GET, POST, PUT, DELETE
     *
     * @return string

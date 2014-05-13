@@ -27,7 +27,7 @@ class Response {
     //cached exception
     private $_exception = null;
 
-    /*
+    /**
     * Get http output
     *
     * @return string
@@ -36,7 +36,7 @@ class Response {
         return $this->_body;
     }
 
-    /*
+    /**
     * Set http output
     *
     * @param string $body
@@ -47,7 +47,7 @@ class Response {
         return;
     }
 
-    /*
+    /**
     * Get return value of the Controller
     *
     * @return mixed
@@ -56,7 +56,7 @@ class Response {
         return $this->_return;
     }
 
-    /*
+    /**
     * Set return value of the Controller
     *
     * @param mixed $ret Return value of the Controller
@@ -67,7 +67,7 @@ class Response {
         return;
     }
 
-    /*
+    /**
     * Get http status code
     * 
     * @return int http status code
@@ -76,7 +76,7 @@ class Response {
         return $this->_httpCode;
     }
 
-    /*
+    /**
     * Set http status code
     * 
     * @param int $httpCode http status code
@@ -88,7 +88,7 @@ class Response {
         return;
     }
 
-    /*
+    /**
     * Get all header option
     *
     * @return array
@@ -97,7 +97,7 @@ class Response {
         return $this->_headers;
     }
 
-    /*
+    /**
     * Get a varible of headers
     *
     * @param string $key Name of the variable
@@ -112,7 +112,7 @@ class Response {
         return null;
     }
 
-    /*
+    /**
     * Set a varible of headers
     *
     * @param string $key Name of the variable
@@ -127,7 +127,7 @@ class Response {
         return;
     }
     
-    /*
+    /**
     * Unset a varible of headers
     *
     * @param string $key Name of the variable
@@ -143,7 +143,7 @@ class Response {
         return;
     }
 
-    /*
+    /**
     * Clear all headers
     *
     * @return
@@ -153,7 +153,7 @@ class Response {
         return;
     }
 
-    /*
+    /**
      * Set cookie
      *
      * @param string $name
@@ -169,7 +169,7 @@ class Response {
         return setcookie($name, $value, $expire, $path, $domain, $secure, $httpOnly);
     }
 
-    /*
+    /**
     * Flush the response to output
     */
     public function output() {
@@ -189,7 +189,7 @@ class Response {
         return;
     }
 
-    /*
+    /**
     * Whether the template should be loaded
     *
     * @return bool
@@ -198,7 +198,7 @@ class Response {
         return $this->_needTemplate;
     }
 
-    /*
+    /**
     * Set whether the template should be loaded
     *
     * @param bool $needTemplate
@@ -210,7 +210,7 @@ class Response {
         return;
     }
 
-    /*
+    /**
     * Get the template file path
     *
     * @return string
@@ -219,7 +219,7 @@ class Response {
         return $this->_templatePath;
     }
 
-    /*
+    /**
     * Set the template file path
     *
     * @param string $key file path of the template 
@@ -231,7 +231,7 @@ class Response {
         return;
     }
 
-    /*
+    /**
     * Get all variables passed to the template
     *
     * @return array
@@ -240,7 +240,7 @@ class Response {
         return $this->_templateParams;
     }
 
-    /*
+    /**
     * Get a variable passed to the template
     *
     * @param string $key Name of the variable
@@ -255,7 +255,7 @@ class Response {
         return null;
     }
 
-    /*
+    /**
     * Set a variable passed to the template
     *
     * @param string $key Name of the variable
@@ -270,7 +270,7 @@ class Response {
         return;
     }
 
-    /*
+    /**
     * Clear all variables
     *
     * @return
@@ -280,7 +280,7 @@ class Response {
         return;
     }
 
-    /*
+    /**
     * Get an unhandled exception
     *
     * @return Exception
@@ -289,7 +289,7 @@ class Response {
         return $this->_exception;    
     }
 
-    /*
+    /**
     * Whether the response has an unhandled exception
     *
     * @return bool
@@ -298,7 +298,7 @@ class Response {
         return !empty($this->_exception);
     }
 
-    /*
+    /**
     * Set an unhandled exception
     *
     * @param Exception $e an unhandle exception
@@ -309,7 +309,7 @@ class Response {
         return;
     }
 
-    /*
+    /**
     * Clear an unhandled exception
     *
     * @return

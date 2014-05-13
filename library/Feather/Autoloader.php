@@ -2,7 +2,7 @@
 
 namespace Feather;
 
-/*
+/**
 * An autoloader conforms to PSR-0 
 */
 class Autoloader {

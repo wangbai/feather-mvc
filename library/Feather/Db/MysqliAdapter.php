@@ -31,6 +31,7 @@ class MysqliAdapter extends AbstractAdapter {
         $this->_connection = $connection;
         $ret = $this->_connection->set_charset($charset);
         if (!$ret) {
+            $this->_connection = null;
             $this->_throwDbException();
         }
 
@@ -41,8 +42,8 @@ class MysqliAdapter extends AbstractAdapter {
         return $this->_connection->close();
     }
 
-    public function escape($string) {
-        return $this->_connection->real_escape_string($string);
+    public function escape($str) {
+        return $this->_connection->real_escape_string($str);
     }
 
     protected function _query($sql) {

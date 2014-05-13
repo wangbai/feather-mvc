@@ -12,7 +12,7 @@ abstract class AbstractController {
 
     private $_response = null;
 
-    /*
+    /**
     * Create a controller
     * 
     * @param Feather\Mvc\Http\Request $request
@@ -23,19 +23,19 @@ abstract class AbstractController {
         $this->_response = $response;
     }
 
-    /*
+    /**
     * callback function before action is executed
     */
     public function init() {
     }
 
-    /*
+    /**
     * callback function after action has been executed
     */
     public function shutdown() {
     }
 
-    /*
+    /**
     * Get the request associated to the controller
     * 
     * @return Feather\Mvc\Http\Request 
@@ -44,7 +44,7 @@ abstract class AbstractController {
         return $this->_request;
     }
 
-    /*
+    /**
     * Get the response associated to the controller
     *
     * @return Feather\Mvc\Http\Response
@@ -53,7 +53,7 @@ abstract class AbstractController {
         return $this->_response;
     }
 
-    /*
+    /**
     * handle the controller behaviour before and after action
     *
     * @return Feather\Mvc\Http\Response

@@ -192,5 +192,5 @@ class UUID {
         return $prefix."-".self::getMongoUUID();
     }
 
-    
+
 }// END OF CLASS

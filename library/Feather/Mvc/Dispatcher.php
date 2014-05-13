@@ -21,7 +21,7 @@ class Dispatcher {
 
     private $_response = null;
  
-    /*
+    /**
     * Create a dispatcher instance
     *
     * @param string $controllerDirectory
@@ -38,7 +38,7 @@ class Dispatcher {
         $this->setResponse($response);
     }
   
-    /*
+    /**
     * Get the root directory of all the controllers
     *
     * @return string
@@ -47,7 +47,7 @@ class Dispatcher {
         return $this->_controllerDirectory;
     }
 
-    /*
+    /**
     * Set the root directory of all the controllers
     *
     * @param string $dir
@@ -60,7 +60,7 @@ class Dispatcher {
         return;
     }
 
-    /*
+    /**
     * Get the associated route
     *
     * @return Feather\Mvc\Route\AbstractRoute 
@@ -69,7 +69,7 @@ class Dispatcher {
         return $this->_route;
     }
 
-    /*
+    /**
     * Set the associated route
     *
     * @param Feather\Mvc\Route\AbstractRoute $route
@@ -80,7 +80,7 @@ class Dispatcher {
         return;
     }
 
-    /*
+    /**
     * Get the associated template
     *
     * @return Feather\Mvc\Template\AbstractTemplate
@@ -89,7 +89,7 @@ class Dispatcher {
         return $this->_template;
     }
 
-    /*
+    /**
     * Set the associated template
     *
     * @param Feather\Mvc\Route\AbstractTemplate $template
@@ -100,7 +100,7 @@ class Dispatcher {
         return;
     }
 
-    /*
+    /**
     * Get the request associated with the template
     *
     * @return Feather\Mvc\Http\Request
@@ -109,7 +109,7 @@ class Dispatcher {
         return $this->_request;
     }
 
-    /*
+    /**
     * Set the request associated with the template
     *
     * @param Feather\Mvc\Http\Request $request
@@ -120,7 +120,7 @@ class Dispatcher {
         return;
     }
 
-    /*
+    /**
     * Get the response associated with the template
     *
     * @return Feather\Mvc\Http\Response
@@ -129,7 +129,7 @@ class Dispatcher {
         return $this->_response;
     }
 
-    /*
+    /**
     * Set the response associated with the template
     *
     * @param Feather\Mvc\Http\Response $response
@@ -140,7 +140,7 @@ class Dispatcher {
         return;
     }
 
-    /*
+    /**
     * Run the action according to the request
     *
     * @return Feather\Mvc\Http\Reponse
@@ -177,7 +177,7 @@ class Dispatcher {
         return $response;
     }
 
-    /*
+    /**
     * load the controller and run the action
     * 
     * @return Feather\Mvc\Http\Reponse
