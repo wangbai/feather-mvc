@@ -13,15 +13,6 @@ class Registry {
     }
 
     /**
-    * Get all regstered variables
-    *
-    * @return array
-    */
-    public static function getAll() {
-        return self::$instances;
-    }
-
-    /**
     * Get a regstered variable by a key
     *
     * @param string $key
@@ -32,6 +23,15 @@ class Registry {
             return self::$instances[$key];
         }
         return false;
+    }
+
+    /** 
+    * Get all regstered variables
+    *
+    * @return array
+    */
+    public static function getAll() {
+        return self::$instances;
     }
 
     /** 
@@ -56,6 +56,6 @@ class Registry {
     */
     public static function clear($key) {
         unset(self::$instances[$key]);
-    }   
-
+    }
+   
 }// END OF CLASS

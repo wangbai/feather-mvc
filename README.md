@@ -1,7 +1,10 @@
 feather-mvc
 ===========
 
-FeatherMvc is a pure php framework that only contains model-view-controller components; Simplicity is the priority of the project.
+FeatherMvc is a pure php framework
+
+* Simplicity
+* Light-weight
 
 ## Usage
 
