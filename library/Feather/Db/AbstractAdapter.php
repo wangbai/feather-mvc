@@ -26,6 +26,8 @@ abstract class AbstractAdapter {
     */
     public function __construct($config) {
         $this->_config = array_merge($this->_config, $config);
+
+        $this->connect();
     }
 
     /**
@@ -35,8 +37,6 @@ abstract class AbstractAdapter {
     * @return mixed 
     */
     public function query($sql) {
-        $this->connect();
-
         $result = $this->_query($sql);
         if ($result) {
             return $result;
@@ -53,8 +53,6 @@ abstract class AbstractAdapter {
     * @return mixed
     */
     public function secureQuery($sql, $param = array()) {
-        $this->connect();
-        
         $finalSql = "";
         $remain = $sql;
         foreach ($param as $p) {
