@@ -1,10 +1,11 @@
 feather-mvc
 ===========
 
-FeatherMvc is a pure php framework
+FeatherMvc is a pure php framework, the main purpose of the project is:
 
 * Simplicity
 * Light-weight
+* Easy-config
 
 ## Usage
 
