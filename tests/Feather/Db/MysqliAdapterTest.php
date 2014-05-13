@@ -64,4 +64,5 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase {
         $params = array('wangbai', 1, 'haha');
         $result = $this->_mysqlAdapter->secureQuery($sql, $params);
     }
+
 }// END OF CLASS

@@ -5,16 +5,18 @@ namespace Feather\Db;
 abstract class AbstractAdapter {
     
     const FIELD_REPLACER = '?';
-       
-    //default configuration for the db connection
-    protected $_config = array(
-        'host'      => '',
+ 
+    public static $defaultConfig = array(
+        'host'      => '', 
         'port'      => 3306,
-        'user'      => '',
-        'password'  => '',
-        'database'  => '',
+        'user'      => '', 
+        'password'  => '', 
+        'database'  => '', 
         'charset'   => 'utf8'
-    );
+    );  
+
+    //default configuration for the db connection
+    protected $_config = array();
 
     //db connection
     protected $_connection = null;
@@ -25,7 +27,7 @@ abstract class AbstractAdapter {
     * @param array $config Database config
     */
     public function __construct($config) {
-        $this->_config = array_merge($this->_config, $config);
+        $this->_config = array_merge(self::$defaultConfig, $config);
 
         $this->connect();
     }
