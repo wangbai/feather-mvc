@@ -24,8 +24,9 @@ class UUID {
      * valid UUID) and a value (the name). Given the same namespace and 
      * name, the output is always the same.
      * 
-     * @param   uuid    $namespace
-     * @param   string  $name
+     * @param string $namespace A uuid string
+     * @param string $name
+     * @return string A uuid of 36 length string  
      */
     static public function getV3UUID($namespace, $name) {
         if(!self::is_valid($namespace)) return false;
@@ -69,8 +70,9 @@ class UUID {
     /**
      * 
      * Generate v4 UUID
-     * 
      * Version 4 UUIDs are pseudo-random.
+     * 
+     * @return string A uuid of 36 length
      */
     static public function getV4UUID() {
         return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
@@ -102,8 +104,9 @@ class UUID {
      * valid UUID) and a value (the name). Given the same namespace and 
      * name, the output is always the same.
      * 
-     * @param   uuid    $namespace
-     * @param   string  $name
+     * @param string $namespace A uuid string
+     * @param string $name
+     * @return string A uuid of 36 string
      */
     static public function getV5UUID($namespace, $name) {
         if(!self::is_valid($namespace)) return false;
@@ -144,7 +147,7 @@ class UUID {
         );
     }
  
-    /*
+    /**
     * Whether a valid uuid
     */
     static public function is_valid($uuid) {
@@ -152,7 +155,7 @@ class UUID {
                       '[0-9a-f]{4}\-?[0-9a-f]{12}\}?$/i', $uuid) === 1;
     }
 
-    /*  
+    /** 
     * Mongo Object ID
     * time - 4 byte(char)
     * machine id - 3 byte(char)
@@ -182,7 +185,7 @@ class UUID {
         );  
     }
 
-    /*
+    /**
     * customized uuid
     *
     * @return 33 length string
