@@ -65,4 +65,20 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase {
         $result = $this->_mysqlAdapter->secureQuery($sql, $params);
     }
 
+    public function testAdapterToString() {
+        $config = array(
+            'host'       => '10.0.11.224',
+            'user'       => 'yongche',
+            'password'   => '', 
+            'database'   => 'feather_test',
+            'charset'    => 'utf8'
+        ); 
+        $adapter1 = new MysqliAdapter($config);
+        
+        $config1 = $config;
+        $config1['database'] = 'test';
+        $adapter2 = new MysqliAdapter($config1);
+     
+        $this->assertNotEquals((string)$adapter1, (string)$adapter2);       
+    }
 }// END OF CLASS

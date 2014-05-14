@@ -82,6 +82,15 @@ abstract class AbstractAdapter {
     }
 
     /**
+    * Convert to a connection only label
+    *
+    * @return string
+    */
+    public function __toString() {
+        return md5(serialize($this->_config));
+    }
+
+    /**
     * Connect to the DB server
     * 
     * @return
