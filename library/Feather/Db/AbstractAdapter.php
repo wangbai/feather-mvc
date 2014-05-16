@@ -99,6 +99,7 @@ abstract class AbstractAdapter {
 
     /**
     * Release the connection to the DB server
+    * After closing, the adapter is destroyed
     *
     * @return bool
     */
