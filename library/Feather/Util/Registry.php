@@ -6,12 +6,6 @@ class Registry {
  
     private static $instances = array();
 
-    private function construct() {
-    }
-
-    private function __clone() {
-    }
-
     /**
     * Get a regstered variable by a key
     *
