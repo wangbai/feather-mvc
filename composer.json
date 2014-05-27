@@ -1,11 +1,11 @@
 {
     "name": "wangbai/feather-mvc",
-    "description": "A php framework",
+    "description": "A pure php framework",
     "type": "library",
     "authors": [
         {
             "name": "wangbai",
-            "email": "wangbai1981@gmail.com",
+            "email": "wangbai1981@gmail.com"
         }
     ]
 }
