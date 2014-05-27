@@ -1,0 +1,14 @@
+{
+    "name": "wangbai/feather-mvc",
+    "type": "library",
+    "description": "A pure PHP framework",
+    "keywords": ["framework"],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "autoload": {
+        "psr-0": {
+            "classmap": ["library/"]
+        }
+    }
+}
