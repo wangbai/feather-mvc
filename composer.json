@@ -1,0 +1,11 @@
+{
+    "name": "wangbai/feather-mvc",
+    "description": "A php framework",
+    "type": "library",
+    "authors": [
+        {
+            "name": "wangbai",
+            "email": "wangbai1981@gmail.com",
+        }
+    ]
+}
