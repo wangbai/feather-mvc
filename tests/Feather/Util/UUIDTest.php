@@ -4,9 +4,9 @@ namespace Feather\Util;
 
 class UUIDTest extends \PHPUnit_Framework_TestCase {
 
-    public function testGetV4UUID() {
-        $uuid = UUID::getV4UUID();
-        $this->assertEquals(strlen($uuid), 36);
+    public function testGetMongoUUID() {
+        $uuid = UUID::getMongoUUID();
+        $this->assertEquals(strlen($uuid), 24);
     }
 
     public function testGetMacAddress() {
