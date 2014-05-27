@@ -27,4 +27,3 @@ FeatherMvc is a pure php framework, the main purpose of the project is:
 + library
 + tests
 ```
-#Demo
