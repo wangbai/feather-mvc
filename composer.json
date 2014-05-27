@@ -1,5 +1,6 @@
 {
     "name": "wangbai/feather-mvc",
+    "version": "0.0.1",
     "type": "library",
     "description": "A pure PHP framework",
     "keywords": ["framework"],
