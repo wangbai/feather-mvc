@@ -11,7 +11,7 @@ class UUID {
     * pid - 2 byte(char)
     * inc - 3 byte(char)
     *
-    * @return string 24 length string
+    * @return string 12 bytes length string
     */
     static public function getMongoUUID() {
         static $incBase = false;
@@ -38,7 +38,7 @@ class UUID {
     * customized uuid
     *
     * @param string $namespace Namespace for the UUID
-    * @return 33 length string
+    * @return 21 bytes length string
     */
     static public function getCustomizedUUID($namespace) {
         $prefix = hash('crc32', $namespace, false);
