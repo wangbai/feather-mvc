@@ -16,7 +16,6 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase {
         );
 
         $this->_mysqlAdapter = new MysqliAdapter($config);
-        $this->_mysqlAdapter->connect();
     }
 
     public function testConnectFailed() {
@@ -33,7 +32,6 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase {
         );
 
         $this->_mysqlAdapter = new MysqliAdapter($config);
-        $this->_mysqlAdapter->connect();
     }
 
     public function testQuery() {
