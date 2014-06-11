@@ -81,4 +81,51 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase {
      
         $this->assertNotEquals((string)$adapter1, (string)$adapter2);       
     }
+
+    public function testInsert() {
+        $config = array(
+            'host'       => '10.0.11.224',
+            'user'       => 'yongche',
+            'password'   => '',
+            'database'   => 'feather_test',
+            'charset'    => 'utf8'
+        );
+
+        $this->_mysqlAdapter = new MysqliAdapter($config);
+        $sql = 'insert into person set name = ? , age = ?;';
+        $params = array('Jane', 100);
+        $result = $this->_mysqlAdapter->secureQuery($sql, $params);
+    }
+
+    public function testInsert2() {
+        $config = array(
+            'host'       => '10.0.11.224',
+            'user'       => 'yongche',
+            'password'   => '',
+            'database'   => 'feather_test',
+            'charset'    => 'utf8'
+        );
+
+        $this->_mysqlAdapter = new MysqliAdapter($config);
+        $sql = 'insert into person set id = ?, name = ? , age = ?;';
+        $params = array(1000, 'Jane', 100);
+        $result = $this->_mysqlAdapter->secureQuery($sql, $params);
+        $this->assertEquals(1000, $result);
+    }
+
+    public function testUpdate() {
+        $config = array(
+            'host'       => '10.0.11.224',
+            'user'       => 'yongche',
+            'password'   => '',
+            'database'   => 'feather_test',
+            'charset'    => 'utf8'
+        );
+
+        $this->_mysqlAdapter = new MysqliAdapter($config);
+        $sql = 'update person set age = ? where name = ?;';
+        $params = array(100, 'Jane');
+        $result = $this->_mysqlAdapter->secureQuery($sql, $params);
+    }
+    
 }// END OF CLASS

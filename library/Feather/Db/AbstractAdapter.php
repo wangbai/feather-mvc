@@ -74,7 +74,7 @@ abstract class AbstractAdapter {
         }
 
         $result = $this->_query($finalSql);
-        if (!$result) {
+        if ($result !== false) {
             return $result;
         }
 
@@ -154,4 +154,17 @@ abstract class AbstractAdapter {
     */
     abstract public function rollback();
 
+    /*
+    * extract sql operation
+    * 
+    * @param string $sql sql query
+    * @return string insert | delete | update | select
+    */
+    static public function operationExtract($sql) {
+        $sql = trim($sql);
+        $firstBlank = strpos($sql, ' ');
+        $operation = substr($sql, 0, $firstBlank);
+
+        return strtolower($operation);
+    }
 }// END OF CLASS
