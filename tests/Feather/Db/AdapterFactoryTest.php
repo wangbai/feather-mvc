@@ -9,9 +9,9 @@ class AdapterFactoryTest extends \PHPUnit_Framework_TestCase {
     public function testPorduceOnlyOneMysqli() {
         $config = array(
             'host'       => '10.0.11.224',
-            'user'       => 'yongche',
+            'username'       => 'yongche',
             'password'   => '',
-            'database'   => 'feather_test',
+            'dbname'   => 'feather_test',
             'charset'    => 'utf8'
         );
         

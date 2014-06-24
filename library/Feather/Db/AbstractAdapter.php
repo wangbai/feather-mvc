@@ -9,9 +9,9 @@ abstract class AbstractAdapter {
     public static $defaultConfig = array(
         'host'      => '', 
         'port'      => 3306,
-        'user'      => '', 
+        'username'      => '', 
         'password'  => '', 
-        'database'  => '', 
+        'dbname'  => '', 
         'charset'   => 'utf8'
     );  
 

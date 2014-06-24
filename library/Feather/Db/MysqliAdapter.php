@@ -18,9 +18,9 @@ class MysqliAdapter extends AbstractAdapter {
         $config = $this->_config;
         $host = $config['host'];
         $port = $config['port'];
-        $user = $config['user'];
+        $user = $config['username'];
         $password = $config['password'];
-        $database = $config['database'];
+        $database = $config['dbname'];
         $charset = $config['charset'];
 
         $ret = @mysqli_real_connect($connection, $host, $user, $password, $database, $port);
