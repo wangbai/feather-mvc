@@ -14,9 +14,9 @@ class PersonTest extends \PHPUnit_Framework_TestCase {
     protected function setUp() {
         $config = array(
             'host'       => '10.0.11.224',
-            'user'       => 'yongche',
+            'username'       => 'yongche',
             'password'   => '',
-            'database'   => 'feather_test',
+            'dbname'   => 'feather_test',
             'charset'    => 'utf8'
         );
         $this->_mysqlAdapter = new MysqliAdapter($config);

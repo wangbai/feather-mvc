@@ -9,9 +9,9 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase {
     public function testConnectSucceed() {
         $config = array(
             'host'       => '10.0.11.224',
-            'user'       => 'yongche',
+            'username'       => 'yongche',
             'password'   => '',
-            'database'   => 'feather_test',
+            'dbname'   => 'feather_test',
             'charset'    => 'utf8'
         );
 
@@ -21,9 +21,9 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase {
     public function testConnectFailed() {
         $config = array(
             'host'       => '10.0.11.1',
-            'user'       => 'yongche',
+            'username'       => 'yongche',
             'password'   => '',
-            'database'   => 'feather_test',
+            'dbname'   => 'feather_test',
             'charset'    => 'utf8'
         );
 
@@ -37,9 +37,9 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase {
     public function testQuery() {
         $config = array(
             'host'       => '10.0.11.224',
-            'user'       => 'yongche',
+            'username'       => 'yongche',
             'password'   => '',
-            'database'   => 'feather_test',
+            'dbname'   => 'feather_test',
             'charset'    => 'utf8'
         );
 
@@ -51,9 +51,9 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase {
     public function testSecureQuery() {
         $config = array(
             'host'       => '10.0.11.224',
-            'user'       => 'yongche',
+            'username'       => 'yongche',
             'password'   => '',
-            'database'   => 'feather_test',
+            'dbname'   => 'feather_test',
             'charset'    => 'utf8'
         );
 
@@ -66,15 +66,15 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase {
     public function testAdapterToString() {
         $config = array(
             'host'       => '10.0.11.224',
-            'user'       => 'yongche',
+            'username'       => 'yongche',
             'password'   => '', 
-            'database'   => 'feather_test',
+            'dbname'   => 'feather_test',
             'charset'    => 'utf8'
         ); 
         $adapter1 = new MysqliAdapter($config);
         
         $config1 = $config;
-        $config1['database'] = 'test';
+        $config1['dbname'] = 'test';
         $adapter2 = new MysqliAdapter($config1);
      
         $this->assertNotEquals((string)$adapter1, (string)$adapter2);       
@@ -83,9 +83,9 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase {
     public function testInsert() {
         $config = array(
             'host'       => '10.0.11.224',
-            'user'       => 'yongche',
+            'username'       => 'yongche',
             'password'   => '',
-            'database'   => 'feather_test',
+            'dbname'   => 'feather_test',
             'charset'    => 'utf8'
         );
 
@@ -98,9 +98,9 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase {
     public function testInsert2() {
         $config = array(
             'host'       => '10.0.11.224',
-            'user'       => 'yongche',
+            'username'       => 'yongche',
             'password'   => '',
-            'database'   => 'feather_test',
+            'dbname'   => 'feather_test',
             'charset'    => 'utf8'
         );
 
@@ -114,9 +114,9 @@ class MysqliAdapterTest extends \PHPUnit_Framework_TestCase {
     public function testUpdate() {
         $config = array(
             'host'       => '10.0.11.224',
-            'user'       => 'yongche',
+            'username'       => 'yongche',
             'password'   => '',
-            'database'   => 'feather_test',
+            'dbname'   => 'feather_test',
             'charset'    => 'utf8'
         );
 
