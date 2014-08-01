@@ -75,7 +75,7 @@ class MysqliAdapter extends AbstractAdapter {
     }
 
     public function beginTransaction() {
-        $ret = $this->_connection->begin_transaction();
+        $ret = $this->_connection->autocommit(false);
         if (!$ret) {
             throw new Exception('Begin transaction failed');       
         }
