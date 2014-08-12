@@ -43,7 +43,7 @@ abstract class AbstractModel {
             $params[] = $v;
         }
         $sql = rtrim($sql, ',');
-        $suffix = 'where '.$this->_primaryKey.' = ?';
+        $sql .= 'where '.$this->_primaryKey.' = ?';
         $params[] = $primaryId;
 
         return $this->_adapter->secureQuery($sql, $params);
