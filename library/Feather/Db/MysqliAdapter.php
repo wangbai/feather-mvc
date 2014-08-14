@@ -48,15 +48,15 @@ class MysqliAdapter extends AbstractAdapter {
 
     protected function _query($sql) {
         $result = $this->_connection->query($sql);        
-        var_dump($sql);
+        
+        if (parent::operationExtract($sql) == 'insert') {
+            return $this->_connection->insert_id;
+        }
+
         if ($result === true || $result === false) {
             return $result;
         }
 
-        if (parent::operationExtract($sql) == 'insert') {
-            return $this->_connection->insert_id;
-        }
-     
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
