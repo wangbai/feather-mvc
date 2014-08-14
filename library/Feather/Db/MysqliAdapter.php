@@ -48,7 +48,7 @@ class MysqliAdapter extends AbstractAdapter {
 
     protected function _query($sql) {
         $result = $this->_connection->query($sql);        
-
+        var_dump($sql);
         if ($result === true || $result === false) {
             return $result;
         }
