@@ -53,7 +53,12 @@ abstract class AbstractModel {
         $sql = 'select * from '.$this->_tableName.' where '.$this->_primaryKey.' = ?';
         $params = array($primaryId);
 
-        return $this->_adapter->secureQuery($sql, $params);
+        $result = $this->_adapter->secureQuery($sql, $params);
+        if(empty($result)){
+            return array();
+        }else{
+            $result[0];
+        }
     }
 
 }// END OF CLASS
