@@ -57,7 +57,7 @@ abstract class AbstractModel {
         if(empty($result)){
             return array();
         }else{
-            $result[0];
+            return $result[0];
         }
     }
 
