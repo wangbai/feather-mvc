@@ -20,7 +20,7 @@ abstract class AbstractModel {
         $params = array();
 
         foreach($data as $k => $v) {
-            $sql .= ' '.$k.' = ?,';
+            $sql .= ' `'.$k.'` = ?,';
             $params[] = $v;
         }
         $sql = rtrim($sql, ',');
