@@ -16,7 +16,7 @@ abstract class AbstractModel {
     }
 
     public function insert($data) {
-        $sql = 'insert into '.$this->_tableName.' set';
+        $sql = 'insert into `'.$this->_tableName.'` set';
         $params = array();
 
         foreach($data as $k => $v) {
@@ -28,14 +28,14 @@ abstract class AbstractModel {
     }
 
     public function deleteById($primaryId) {
-        $sql = 'delete from '.$this->_tableName.' where '.$this->_primaryKey.' = ?';
+        $sql = 'delete from `'.$this->_tableName.'` where '.$this->_primaryKey.' = ?';
         $params = array($primaryId);
 
         return $this->_adapter->secureQuery($sql, $params);
     }
 
     public function updateById($data, $primaryId) {
-        $sql = 'update '.$this->_tableName.' set';
+        $sql = 'update `'.$this->_tableName.'` set';
         $params = array();
 
         foreach($data as $k => $v) {
@@ -50,7 +50,7 @@ abstract class AbstractModel {
     }
 
     public function findById($primaryId) {
-        $sql = 'select * from '.$this->_tableName.' where '.$this->_primaryKey.' = ?';
+        $sql = 'select * from `'.$this->_tableName.'` where '.$this->_primaryKey.' = ?';
         $params = array($primaryId);
 
         $result = $this->_adapter->secureQuery($sql, $params);
