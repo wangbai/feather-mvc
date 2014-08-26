@@ -40,7 +40,7 @@ abstract class AbstractAdapter {
     */
     public function query($sql) {
         $result = $this->_query($sql);
-        if ($result) {
+        if ($result !== false) {
             return $result;
         }
 
