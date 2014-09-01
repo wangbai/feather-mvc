@@ -61,4 +61,10 @@ abstract class AbstractModel {
         }
     }
 
+    public function selectForUpdate($primaryIds){
+        $sql = 'select * from '.$this->_tableName.' where '.$this->_primaryKey.' in ('.$primaryIds.') for update';
+
+        return $this->_adapter->query($sql);
+    }
+
 }// END OF CLASS
