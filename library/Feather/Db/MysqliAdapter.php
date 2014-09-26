@@ -98,5 +98,6 @@ class MysqliAdapter extends AbstractAdapter {
         if (!$ret) {
             throw new Exception('Transaction rollback failed');
         }
+        $this->_connection->autocommit(true);
     }
 }// END OF CLASS
