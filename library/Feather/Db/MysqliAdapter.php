@@ -47,7 +47,28 @@ class MysqliAdapter extends AbstractAdapter {
     }
 
     protected function _query($sql) {
+        $begin = microtime(true);
         $result = $this->_connection->query($sql);        
+        $time = microtime(true) - $begin;
+        if($time >= (defined("SLOW_QUERY_TIME") ? constant("SLOW_QUERY_TIME") : 2)) {
+            $time = sprintf("%.3f", $time);
+            $dt = date("Y-m-d H:i:s", $begin);
+            $str = "====== $dt ======\n";
+            if(isset($_SERVER['HTTP_X_FROM_HOST'])) {
+                $str .= "FromHost: " . $_SERVER['HTTP_X_FROM_HOST'] . "\n";
+            }
+            if(isset($_SERVER['HTTP_X_FROM_URL'])) {
+                $str .= "FromUrl: " . $_SERVER['HTTP_X_FROM_URL'] . "\n";
+            }
+            $str .= "Spend: $time s\n";
+            $str .= "SQL: " . substr($sql, 0, 1024) . "\n";
+            foreach(debug_backtrace() as $k => $r) {
+                $str .= "$k: {$r['file']}:{$r['line']}\n";
+            }
+            $old = umask(0111);
+            @file_put_contents("/var/log/httpd/slow_query.log", $str, FILE_APPEND);
+            umask($old);
+        }
        
         if($result === false){
             return false;
