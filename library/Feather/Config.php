@@ -33,7 +33,7 @@ class Config{
     } 
 
     public function __get($name){
-        $this->get($name);
+        return $this->get($name);
     }
 
 

@@ -14,12 +14,12 @@ class Register{
     static private $_data = array();
 
     static public function set($name, $value){
-        $this->_data[$name] = $value;
+        self::$_data[$name] = $value;
     }
 
     static public function get($name, $default = null){
-        if(isset($this->_data[$name])){
-            return $this->_data[$name];
+        if(isset(self::$_data[$name])){
+            return self::$_data[$name];
         }
         return $default;
     }
