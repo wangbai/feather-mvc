@@ -19,6 +19,10 @@ class Register{
 
     static public function get($name, $default = null){
         if(isset(self::$_data[$name])){
+            $value = self::$_data[$name];
+            if(get_class($value) === 'Closure'){
+                self::$_data[$name] = $value();
+            }
             return self::$_data[$name];
         }
         return $default;

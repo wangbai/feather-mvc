@@ -36,6 +36,18 @@ class Config{
         return $this->get($name);
     }
 
+    public function __set($name, $val){
+        return $this->set($name, $val);
+    }
+
+    public function set($name, $val){
+        if(is_array($val)){
+            $this->_data[$name] = new self($val);
+        }else{
+            $this->_data[$name] = $val;
+        }
+    }
+
 
     public function toArray(){
         $array = array();
