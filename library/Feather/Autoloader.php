@@ -20,7 +20,7 @@ class Autoloader {
     private function __construct() {
     }
 
-    public function init() {
+    public function register() {
         spl_autoload_register(array($this, "_autoload"));
         return;
     }
@@ -30,6 +30,7 @@ class Autoloader {
         foreach($arr as $key => $path){
             $this->_namespaces[$this->_spacename($key)] = $path;
         }
+        return $this;
     }
 
     private function _spacename($name){

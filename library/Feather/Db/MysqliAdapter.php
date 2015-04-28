@@ -39,10 +39,13 @@ class MysqliAdapter extends AbstractAdapter {
     }
 
     public function close() {
+        $res = false;
         if($this->_connection instanceof mysqli){
-            $this->_connection->close();
+            $res = $this->_connection->close();
         }
         $this->_connection = null;
+
+        return $res;
     }
 
     public function escape($str) {
