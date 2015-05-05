@@ -26,9 +26,10 @@ class Autoloader {
     }
 
     private $_namespaces = array();
-    public function registerNamespaces(array $arr){
+    public function setNamespaces(array $arr){
         foreach($arr as $key => $path){
-            $this->_namespaces[$this->_spacename($key)] = $path;
+            $key = trim($this->_spacename($key), '\\');
+            $this->_namespaces[$key] = $path;
         }
         return $this;
     }
