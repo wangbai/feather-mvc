@@ -12,7 +12,6 @@ class A2Xml {
 
     private $version    = '1.0';      //Version Of Xml
     private $encoding   = null;       //Character Encoding Of Xml
-    private $root       = 'result';
     private $xml        = null;
 
     const DEFAULT_ENCODING = 'UTF-8'; //Default Character Encoding Of Xml
@@ -31,11 +30,9 @@ class A2Xml {
     private function _setHeader(){
         $this->xml->openMemory();
         $this->xml->startDocument($this->version, $this->encoding);
-        $this->xml->startElement($this->root);
     }
 
     private function _setEnd(){
-        $this->xml->endElement();
         $this->xml->endDocument();
         return $this->xml->outputMemory(true);
     }
