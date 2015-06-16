@@ -17,7 +17,7 @@ class A2Xml {
     const DEFAULT_ENCODING = 'UTF-8'; //Default Character Encoding Of Xml
 
     public function __construct($encoding = self::DEFAULT_ENCODING) {
-        $this->xml = new XmlWriter();
+        $this->xml = new \XmlWriter();
         $this->encoding = $encoding;
     }
 
