@@ -12,9 +12,12 @@ class Xml2A{
 
     public static function getArray($xml){
         $simpleXmlObj = simplexml_load_string($xml);
-        $json = json_encode($simpleXmlObj);
-        $array = json_decode($json,TRUE);
-        return $array;
+        $result = array();
+        foreach($simpleXmlObj->children() as $child){
+            $nodeKey = $child->getName();
+            $result[$nodeKey] = $simpleXmlObj->$nodeKey->__toString();
+        }
+        return $result;
     }
 
 }
