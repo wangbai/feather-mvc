@@ -20,6 +20,11 @@ class Autoloader {
     private function __construct() {
     }
 
+    public function init() {
+        self::register();
+        return;
+    }
+
     public function register() {
         spl_autoload_register(array($this, "_autoload"));
         return;
