@@ -16,20 +16,25 @@ class A2Xml {
 
     const DEFAULT_ENCODING = 'UTF-8'; //Default Character Encoding Of Xml
 
+    const WITH_XML_HEADER = 1;
+    const WITHOUT_XML_HEADER = 0;
+
     public function __construct($encoding = self::DEFAULT_ENCODING) {
         $this->xml = new \XmlWriter();
         $this->encoding = $encoding;
     }
 
-    public function getXml( $data = [] ){
-        $this->_setHeader();
+    public function getXml( $data = [] ,$option = self::WITH_XML_HEADER){
+        $this->_setHeader($option);
         $this->_toXml($data);
         return $this->_setEnd();
     }
 
-    private function _setHeader(){
+    private function _setHeader($option){
         $this->xml->openMemory();
-        $this->xml->startDocument($this->version, $this->encoding);
+        if( $option == self::WITH_XML_HEADER ){
+            $this->xml->startDocument($this->version, $this->encoding);
+        }
     }
 
     private function _setEnd(){
