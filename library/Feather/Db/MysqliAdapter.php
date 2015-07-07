@@ -39,12 +39,8 @@ class MysqliAdapter extends AbstractAdapter {
     }
 
     public function close() {
-        $res = false;
-        if($this->_connection instanceof mysqli){
-            $res = $this->_connection->close();
-        }
-        $this->_connection = null;
-
+        $res = ($this->_connection) ? @mysqli_close($this->_connection) : true;
+        $this->_connection = $res ? null : $this->_connection;
         return $res;
     }
 
