@@ -136,4 +136,12 @@ class Application {
         return $this->_dispatcher;
     }
 
+    public function getRequest(){
+        return $this->_request;
+    }
+
+    public function getResponse(){
+        return $this->_response;
+    }
+
 }//END OF CLASS
