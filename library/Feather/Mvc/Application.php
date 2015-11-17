@@ -129,6 +129,9 @@ class Application {
         return;
     }
 
+    /**
+    * get dispatcher
+    */
     public function getDispatcher(){
         return $this->_dispatcher;
     }
