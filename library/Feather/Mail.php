@@ -537,11 +537,3 @@ class Mail {
         }
     }
 }
-
-/*$mail = new \Feather\Mail();
-$mail->setServer('smtp.yongche.com', 'noreply@yongche.com', '87fe556f31f24ddd2c05');
-$mail->setFrom('noreply@yongche.com', 'noreply');
-$mail->setReceiver('wangshaolin@yongche.com');
-//$mail->setReceiver("XXXXX@XXXXX");
-$mail->setMailInfo("test", "<b>test</b>");
-$mail->sendMail();*/
